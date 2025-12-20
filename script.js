@@ -37,6 +37,92 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    document.querySelectorAll('.joining-button').forEach(btn => {
+        btn.addEventListener('click', async () => {
+
+            const user = auth.currentUser;
+            if (!user) {
+                alert('Сначала войдите в аккаунт');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const trainingId = btn.id;
+            const userRef = db.collection('users').doc(user.uid);
+            const userDoc = await userRef.get();
+            const userName = userDoc.data().username;
+
+            const trainingRef = db.collection('trainingRegistrations').doc(trainingId);
+            const trainingDoc = await trainingRef.get();
+
+            let users = [];
+
+            if (trainingDoc.exists) {
+                users = trainingDoc.data().users || [];
+            }
+
+            const alreadyRegistered = users.some(u => u.uid === user.uid);
+
+            if (alreadyRegistered) {
+                users = users.filter(u => u.uid !== user.uid);
+                await trainingRef.set({ users });
+                alert('Вы отменили запись');
+            } else {
+                users.push({ uid: user.uid, name: userName });
+                await trainingRef.set({ users });
+                alert('Вы записались на тренировку');
+            }
+
+            updateTrainingDisplay(trainingId);
+        });
+    });
+});
+
+async function updateTrainingDisplay(trainingId) {
+    const btn = document.getElementById(trainingId);
+    const infoBlock = getInfoBlock(btn);
+
+    const user = auth.currentUser;
+    const doc = await db.collection('trainingRegistrations').doc(trainingId).get();
+
+    if (!doc.exists) {
+        btn.innerHTML = '<h3>Записаться</h3>';
+        infoBlock.innerHTML = '';
+        return;
+    }
+
+    const users = doc.data().users || [];
+    const isRegistered = user && users.some(u => u.uid === user.uid);
+
+    btn.innerHTML = isRegistered ? '<h3>Отменить</h3>' : '<h3>Записаться</h3>';
+
+    if (users.length > 0) {
+        const names = users.map(u =>
+            user && u.uid === user.uid ? `<strong>${u.name} (вы)</strong>` : u.name
+        ).join(', ');
+
+        infoBlock.innerHTML = `
+            <div>Записалось: ${users.length}</div>
+            <div>${names}</div>
+        `;
+    } else {
+        infoBlock.innerHTML = '';
+    }
+}
+
+function getInfoBlock(btn) {
+    let info = btn.parentNode.querySelector('.registration-info');
+    if (!info) {
+        info = document.createElement('div');
+        info.className = 'registration-info';
+        btn.parentNode.appendChild(info);
+    }
+    return info;
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
     const months = ['Января','Февраля','Марта','Апреля','Мая','Июня',
                    'Июля','Августа','Сентября','Октября','Ноября','Декабря'];
     const weekDays = ['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота']; 
@@ -120,6 +206,8 @@ document.addEventListener('DOMContentLoaded', () => {
         render();
         showAll();
     };
+
+
     
     const showAllBtn = document.createElement('button');
     showAllBtn.textContent = 'Все тренировки';
@@ -131,82 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    if (!localStorage.getItem('trainingRegistrations')) {
-        localStorage.setItem('trainingRegistrations', JSON.stringify({}));
-    }
-    
-    const regs = JSON.parse(localStorage.getItem('trainingRegistrations') || '{}');
-    Object.keys(regs).forEach(id => updateDisplay(id, regs[id]));
-    
     document.querySelectorAll('.joining-button').forEach(btn => {
-        btn.onclick = function() {
-            const id = this.id;
-            const user = JSON.parse(sessionStorage.getItem('currentUser') || 'null');
-            
-            if (!user) {
-                alert('Войдите в систему');
-                window.location.href = 'login.html';
-                return;
-            }
-            
-            const regs = JSON.parse(localStorage.getItem('trainingRegistrations') || '{}');
-            regs[id]?.some(u => u.id === user.id) ? cancel(id) : register(id);
-        };
+        updateTrainingDisplay(btn.id);
     });
 });
-
-function register(id) {
-    const user = JSON.parse(sessionStorage.getItem('currentUser'));
-    if (!user) return;
-    
-    const regs = JSON.parse(localStorage.getItem('trainingRegistrations') || '{}');
-    if (!regs[id]) regs[id] = [];
-    
-    if (regs[id].some(u => u.id === user.id)) {
-        alert('Уже записаны');
-        return;
-    }
-    
-    regs[id].push({id: user.id, name: user.name, email: user.email});
-    localStorage.setItem('trainingRegistrations', JSON.stringify(regs));
-    updateDisplay(id, regs[id]);
-    alert('Записались');
-}
-
-function cancel(id) {
-    const user = JSON.parse(sessionStorage.getItem('currentUser'));
-    if (!user) return;
-    
-    const regs = JSON.parse(localStorage.getItem('trainingRegistrations') || '{}');
-    if (regs[id]) {
-        regs[id] = regs[id].filter(u => u.id !== user.id);
-        localStorage.setItem('trainingRegistrations', JSON.stringify(regs));
-        updateDisplay(id, regs[id]);
-        alert('Отменили');
-    }
-}
-
-function updateDisplay(id, users) {
-    const btn = document.getElementById(id);
-    if (!btn) return;
-    
-    const user = JSON.parse(sessionStorage.getItem('currentUser') || 'null');
-    const isReg = user && users?.some(u => u.id === user.id);
-    
-    btn.innerHTML = isReg ? '<h3>Отменить</h3>' : '<h3>Записаться</h3>';
-    btn.classList.toggle('registered', isReg);
-    
-    let info = btn.parentNode.querySelector('.registration-info');
-    if (!info) {
-        info = document.createElement('div');
-        info.className = 'registration-info';
-        btn.parentNode.appendChild(info);
-    }
-    
-    if (users?.length) {
-        const names = users.map(u => user && u.id === user.id ? `<strong>${u.name} (вы)</strong>` : u.name).join(', ');
-        info.innerHTML = `<div>Записалось: ${users.length}</div><div>${names}</div>`;
-    } else {
-        info.innerHTML = '<div> </div>';
-    }
-}
