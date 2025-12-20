@@ -1,31 +1,40 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const user = sessionStorage.getItem('currentUser');
     const welcome = document.getElementById('userWelcome');
     const welcomeText = document.getElementById('welcomeText');
     const logoutBtn = document.getElementById('logoutBtn');
     const signIn = document.getElementById('sign_in');
     const signUp = document.getElementById('sign_up');
-    
-    if (user) {
-        const userData = JSON.parse(user);
-        welcomeText.textContent = `Привет, ${userData.name}!`;
-        welcome.style.display = 'block';
-        signIn.style.display = 'none';
-        signUp.style.display = 'none';
-    } else {
-        welcome.style.display = 'none';
-        signIn.style.display = 'inline-block';
-        signUp.style.display = 'inline-block';
-    }
-    
-    logoutBtn.addEventListener('click', () => {
-        sessionStorage.removeItem('currentUser');
-        window.location.reload();
+
+    auth.onAuthStateChanged(async (user) => {
+        if (user) {
+            signIn.style.display = 'none';
+            signUp.style.display = 'none';
+            welcome.style.display = 'block';
+
+            const doc = await db.collection('users').doc(user.uid).get();
+            const data = doc.data();
+
+            welcomeText.textContent = `Привет, ${data.username}!`;
+        } else {
+            welcome.style.display = 'none';
+            signIn.style.display = 'inline-block';
+            signUp.style.display = 'inline-block';
+        }
     });
-    
-    signUp.addEventListener('click', () => window.location.href = 'registr.html');
-    signIn.addEventListener('click', () => window.location.href = 'login.html');
+
+    logoutBtn.addEventListener('click', () => {
+        auth.signOut();
+    });
+
+    signIn.addEventListener('click', () => {
+        window.location.href = 'login.html';
+    });
+
+    signUp.addEventListener('click', () => {
+        window.location.href = 'registr.html';
+    });
 });
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const months = ['Января','Февраля','Марта','Апреля','Мая','Июня',
