@@ -230,3 +230,28 @@ input.valid {
     border-color: #dc7f0d;
     background: rgba(102, 126, 234, 0.1);
 }
+
+/* адаптация для телефона */
+
+@media (max-width: 480px) {
+
+    .login-form,
+    .registration-form,
+    .reset-form {
+        padding: 1.5rem;
+        border-radius: 12px;
+    }
+
+    input {
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 15px;
+        padding: 12px;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+}

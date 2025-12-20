@@ -318,3 +318,71 @@ section {
     color: var(--calendar-primary-color); 
 }
 
+
+
+
+
+
+/* адаптация для телефона */
+
+@media (max-width: 768px) {
+
+    body {
+        background-attachment: scroll;
+    }
+
+    .colbasa {
+        flex-direction: column;
+        left: 0;
+        padding: 10px;
+    }
+
+    .description {
+        margin: 0 auto;
+        right: 0;
+        max-width: 90%;
+        font-size: 14px;
+    }
+
+    .container1,
+    .container2,
+    .container3,
+    .container4 {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .login {
+        width: 90%;
+        height: auto;
+        padding: 15px;
+    }
+
+    .joining-button {
+        width: 100%;
+        margin: 20px 0;
+    }
+
+    h1, h2 {
+        font-size: 1.4rem;
+    }
+
+    h3 {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #calendar-container {
+        padding: 15px;
+    }
+
+    .calendar-day {
+        padding: 6px 0;
+        font-size: 0.8em;
+    }
+
+    #currentMonthYear {
+        font-size: 1em;
+    }
+}
