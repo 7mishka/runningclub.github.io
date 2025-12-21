@@ -16,8 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const data = doc.data();
     welcomeText.textContent = `Привет, ${data.username}!`;
 } else {
-    welcomeText.textContent = 'Привет, ${data.username}!';
+    welcomeText.textContent = 'Привет!';
 }
+
 
         } else {
             welcome.style.display = 'none';

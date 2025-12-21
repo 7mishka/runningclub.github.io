@@ -338,25 +338,21 @@ input.valid {
 
 /* адаптация для телефона */
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
 
-    .login-form,
-    .registration-form,
-    .reset-form {
-        padding: 1.5rem;
-        border-radius: 12px;
-    }
+    .description {
+        max-width: 92%;
 
-    input {
+        margin: 60px 0 0 70%;
+
+        padding: 16px 18px;
+        text-align: left;
+
         font-size: 14px;
-    }
+        line-height: 1.6;
+        letter-spacing: 0.5px;
 
-    button {
-        font-size: 15px;
-        padding: 12px;
-    }
-
-    h2 {
-        font-size: 1.6rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
     }
 }
