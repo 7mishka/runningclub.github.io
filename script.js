@@ -23,7 +23,7 @@ userRef.onSnapshot((doc) => {
     }
 
     if (user.email) {
-        welcomeText.textContent = `Привет, ${data.username}!`;
+        welcomeText.textContent = `Привет, ${user.email.split('@')[0]}!`;
     } else {
         welcomeText.textContent = 'Привет!';
     }
@@ -108,7 +108,15 @@ async function updateTrainingDisplay(trainingId) {
     const infoBlock = getInfoBlock(btn);
 
     const user = auth.currentUser;
-    const doc = await db.collection('trainingRegistrations').doc(trainingId).get();
+
+if (!user) {
+    btn.innerHTML = '<h3>Записаться</h3>';
+    infoBlock.innerHTML = '';
+    return;
+}
+
+const doc = await db.collection('trainingRegistrations').doc(trainingId).get();
+
 
     if (!doc.exists) {
         btn.innerHTML = '<h3>Записаться</h3>';
