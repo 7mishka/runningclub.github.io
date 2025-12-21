@@ -11,32 +11,25 @@ document.addEventListener('DOMContentLoaded', () => {
             signUp.style.display = 'none';
             welcome.style.display = 'block';
 
-            let greeting = 'Привет!';
+            const userRef = db.collection('users').doc(user.uid);
 
-try {
-    const userRef = db.collection('users').doc(user.uid);
-
-    let doc = await userRef.get();
-
-    if (!doc.exists) {
-        await new Promise(r => setTimeout(r, 300));
-        doc = await userRef.get();
-    }
-
+userRef.onSnapshot((doc) => {
     if (doc.exists) {
         const data = doc.data();
         if (data.username) {
-            greeting = `Привет, ${data.username}!`;
+            welcomeText.textContent = `Привет, ${data.username}!`;
+            return;
         }
-    } else if (user.email) {
-        greeting = `Привет, ${user.email.split('@')[0]}!`;
     }
 
-} catch (e) {
-    console.error('Ошибка получения имени:', e);
-}
+    if (user.email) {
+        welcomeText.textContent = `Привет, ${user.email.split('@')[0]}!`;
+    } else {
+        welcomeText.textContent = 'Привет!';
+    }
+});
 
-welcomeText.textContent = greeting;
+
 
         } else {
             welcome.style.display = 'none';
