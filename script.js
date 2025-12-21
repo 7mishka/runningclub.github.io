@@ -23,7 +23,7 @@ userRef.onSnapshot((doc) => {
     }
 
     if (user.email) {
-        welcomeText.textContent = `Привет, ${user.email.split('@')[0]}!`;
+        welcomeText.textContent = `Привет, ${data.username}!`;
     } else {
         welcomeText.textContent = 'Привет!';
     }
