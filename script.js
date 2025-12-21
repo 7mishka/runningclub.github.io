@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const data = doc.data();
     welcomeText.textContent = `Привет, ${data.username}!`;
 } else {
-    welcomeText.textContent = 'Привет!';
+    welcomeText.textContent = 'Привет, ${data.username}!';
 }
 
         } else {
