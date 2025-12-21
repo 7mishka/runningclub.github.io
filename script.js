@@ -12,9 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
             welcome.style.display = 'block';
 
             const doc = await db.collection('users').doc(user.uid).get();
-            const data = doc.data();
+            if (doc.exists) {
+    const data = doc.data();
+    welcomeText.textContent = `Привет, ${data.username}!`;
+} else {
+    welcomeText.textContent = 'Привет!';
+}
 
-            welcomeText.textContent = `Привет, ${data.username}!`;
         } else {
             welcome.style.display = 'none';
             signIn.style.display = 'inline-block';
@@ -49,9 +53,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const trainingId = btn.id;
+
             const userRef = db.collection('users').doc(user.uid);
             const userDoc = await userRef.get();
-            const userName = userDoc.data().username;
+
+            let userName = 'Пользователь';
+
+                if (userDoc.exists) {
+                const data = userDoc.data();
+                userName = data.username || 'Пользователь';
+                }
+
 
             const trainingRef = db.collection('trainingRegistrations').doc(trainingId);
             const trainingDoc = await trainingRef.get();

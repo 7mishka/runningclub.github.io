@@ -156,13 +156,13 @@ body {
 }
 
 .colbasa {
-	display: inline-flex;
-	flex-direction: row-reverse;
-	align-items: center;
-	padding: 20px;
-	position: relative;
-	left: 170px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
 }
+
 
 .description {
 	position: relative;
@@ -325,64 +325,22 @@ section {
 
 /* адаптация для телефона */
 
-@media (max-width: 768px) {
-
-    body {
-        background-attachment: scroll;
-    }
-
-    .colbasa {
-        flex-direction: column;
-        left: 0;
-        padding: 10px;
-    }
+@media (max-width: 760px) {
 
     .description {
-        margin: 0 auto;
-        right: 0;
-        max-width: 90%;
+        max-width: 92%;
+
+        margin: 60px 0 0 70%;
+
+        padding: 16px 18px;
+        text-align: left;
+
         font-size: 14px;
-    }
+        line-height: 1.6;
+        letter-spacing: 0.5px;
 
-    .container1,
-    .container2,
-    .container3,
-    .container4 {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .login {
-        width: 90%;
-        height: auto;
-        padding: 15px;
-    }
-
-    .joining-button {
-        width: 100%;
-        margin: 20px 0;
-    }
-
-    h1, h2 {
-        font-size: 1.4rem;
-    }
-
-    h3 {
-        font-size: 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
     }
 }
 
-@media (max-width: 480px) {
-    #calendar-container {
-        padding: 15px;
-    }
-
-    .calendar-day {
-        padding: 6px 0;
-        font-size: 0.8em;
-    }
-
-    #currentMonthYear {
-        font-size: 1em;
-    }
-}
