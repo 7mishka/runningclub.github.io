@@ -11,14 +11,32 @@ document.addEventListener('DOMContentLoaded', () => {
             signUp.style.display = 'none';
             welcome.style.display = 'block';
 
-            const doc = await db.collection('users').doc(user.uid).get();
-            if (doc.exists) {
-    const data = doc.data();
-    welcomeText.textContent = `Привет, ${data.username}!`;
-} else {
-    welcomeText.textContent = 'Привет!';
+            let greeting = 'Привет!';
+
+try {
+    const userRef = db.collection('users').doc(user.uid);
+
+    let doc = await userRef.get();
+
+    if (!doc.exists) {
+        await new Promise(r => setTimeout(r, 300));
+        doc = await userRef.get();
+    }
+
+    if (doc.exists) {
+        const data = doc.data();
+        if (data.username) {
+            greeting = `Привет, ${data.username}!`;
+        }
+    } else if (user.email) {
+        greeting = `Привет, ${user.email.split('@')[0]}!`;
+    }
+
+} catch (e) {
+    console.error('Ошибка получения имени:', e);
 }
 
+welcomeText.textContent = greeting;
 
         } else {
             welcome.style.display = 'none';
