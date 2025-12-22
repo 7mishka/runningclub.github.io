@@ -5,38 +5,48 @@ document.addEventListener('DOMContentLoaded', () => {
     const signIn = document.getElementById('sign_in');
     const signUp = document.getElementById('sign_up');
 
-    auth.onAuthStateChanged(async (user) => {
-        if (user) {
-            signIn.style.display = 'none';
-            signUp.style.display = 'none';
-            welcome.style.display = 'block';
+auth.onAuthStateChanged((user) => {
 
-            const userRef = db.collection('users').doc(user.uid);
+    const welcome = document.getElementById('userWelcome');
+    const welcomeText = document.getElementById('welcomeText');
+    const signIn = document.getElementById('sign_in');
+    const signUp = document.getElementById('sign_up');
 
-userRef.onSnapshot((doc) => {
-    if (doc.exists) {
-        const data = doc.data();
-        if (data.username) {
-            welcomeText.textContent = `Привет, ${data.username}!`;
-            return;
-        }
+    const buttons = document.querySelectorAll('.joining-button');
+
+    if (!user) {
+        if (welcome) welcome.style.display = 'none';
+        if (signIn) signIn.style.display = 'inline-block';
+        if (signUp) signUp.style.display = 'inline-block';
+
+        buttons.forEach(btn => {
+            btn.innerHTML = '<h3>Записаться</h3>';
+            const infoBlock = getInfoBlock(btn);
+            if (infoBlock) infoBlock.innerHTML = '';
+        });
+
+        return;
     }
 
-    if (user.email) {
-        welcomeText.textContent = `Привет, ${user.email.split('@')[0]}!`;
-    } else {
-        welcomeText.textContent = 'Привет!';
-    }
-});
+    if (signIn) signIn.style.display = 'none';
+    if (signUp) signUp.style.display = 'none';
+    if (welcome) welcome.style.display = 'block';
 
-
-
+    db.collection('users').doc(user.uid).onSnapshot((doc) => {
+        if (doc.exists && doc.data().username) {
+            welcomeText.textContent = `Привет, ${doc.data().username}!`;
+        } else if (user.email) {
+            welcomeText.textContent = `Привет, ${user.email.split('@')[0]}!`;
         } else {
-            welcome.style.display = 'none';
-            signIn.style.display = 'inline-block';
-            signUp.style.display = 'inline-block';
+            welcomeText.textContent = 'Привет!';
         }
     });
+
+    buttons.forEach(btn => {
+        updateTrainingDisplay(btn.id);
+    });
+});
+
 
     logoutBtn.addEventListener('click', () => {
         auth.signOut();
@@ -250,8 +260,4 @@ document.addEventListener('DOMContentLoaded', () => {
     render();
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.joining-button').forEach(btn => {
-        updateTrainingDisplay(btn.id);
-    });
-});
+
