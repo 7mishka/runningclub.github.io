@@ -327,9 +327,9 @@ section {
 
 @media (max-width: 768px) {
 
-    /* календарь + описание в колонку */
     .colbasa {
         flex-direction: column;
+
     }
 
     #calendar-container {
@@ -349,7 +349,6 @@ section {
         letter-spacing: 0.5px;
     }
 
-    /* кнопки */
     .login,
     .joining-button {
         width: 90%;
