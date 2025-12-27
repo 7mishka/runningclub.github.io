@@ -47,6 +47,8 @@ auth.onAuthStateChanged((user) => {
     });
 });
 
+    
+
 
     logoutBtn.addEventListener('click', () => {
         auth.signOut();
@@ -260,4 +262,13 @@ document.addEventListener('DOMContentLoaded', () => {
     render();
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    const disclaimerBtn = document.getElementById('disclaimer-btn');
+
+    if (disclaimerBtn) {
+        disclaimerBtn.addEventListener('click', () => {
+            window.location.href = 'disclaimer.html';
+        });
+    }
+});
 

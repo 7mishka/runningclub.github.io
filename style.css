@@ -1,10 +1,3 @@
-.slogan {
-	text-align: center;
-	margin-bottom: 75x;
-	letter-spacing: 4px
-
-}
-
 .name {
 	text-align: center;
 	margin-top: 45px;
@@ -14,8 +7,8 @@
 
 .description {
 	text-align: center;
-	max-width: 500px;
-	margin-left: 380px ;
+	max-width: 260px;
+	margin-left: 400px;
 	letter-spacing: 2px
 }
 
@@ -132,7 +125,6 @@ body {
 	padding: 20px;
   	color: white;
 	background: #3F3F3F;
-	margin-top: 45px;
 	margin-bottom: 75px;
 	width: 400px;
 	height: 100px;
@@ -180,6 +172,7 @@ section {
 }
 
 .section0 {
+    margin-top: 150px;
 	letter-spacing: 1px
 }
 
@@ -319,9 +312,36 @@ section {
 }
 
 
+.disclaimer {
+	letter-spacing: 1.3px;
+	text-align: center;
+ 	min-width: 0; 
+	display: block;
+	padding: 5px;
+  	color: white;
+	background: #3F3F3F;
+    margin: 0 auto;
+	height: 60px;
+    width: 160px;
+	border: none;
+    border-radius: 10px;
+    margin-top: 40px;
+}
 
+.disclaimer:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 247, 247, 0.514);
+}
 
+.disclaimer:active:not(:disabled) {
+    transform: translateY(0);
+}
 
+.disclaimer:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+    transform: none;
+}
 
 /* адаптация для телефона */
 
