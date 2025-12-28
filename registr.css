@@ -231,6 +231,30 @@ input.valid {
     background: rgba(102, 126, 234, 0.1);
 }
 
+.password-field {
+    position: relative;
+}
+
+.password-field input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.eye {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    user-select: none;
+    font-size: 18px;
+    opacity: 0.7;
+}
+
+.eye:hover {
+    opacity: 1;
+}
+
 /* адаптация для телефона */
 
 @media (max-width: 768px) {
