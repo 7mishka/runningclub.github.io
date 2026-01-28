@@ -4,6 +4,8 @@ document.getElementById("registrationForm").addEventListener("submit", function 
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
+    
+
     const grade = document.getElementById('classs').value;
         if (grade < 8 || grade > 11) {
             alert('Невозможна регистрация с таким классом');
@@ -11,7 +13,7 @@ document.getElementById("registrationForm").addEventListener("submit", function 
         }
         
     const age = document.getElementById('age').value;
-        if (age < 13 || age > 18) {
+        if (age < 12 || age > 19) {
             alert('Невозможна регистрация с таким возрастом');
             return;
         }

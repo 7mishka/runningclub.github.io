@@ -378,3 +378,181 @@ section {
     }
 }
 
+/* ===== Cooper Test (12 min) ===== */
+.cooper-test{
+    margin: 30px auto 10px;
+    max-width: 900px;
+    padding: 0 16px;
+    letter-spacing: 1px;
+}
+
+.cooper-card{
+    background-color: rgba(40, 37, 37, 0.697);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+.cooper-header h2{
+    margin: 0;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.cooper-subtitle{
+    margin: 10px 0 0;
+    text-align: center;
+    opacity: 0.9;
+    letter-spacing: 1px;
+    line-height: 1.4;
+}
+
+.cooper-form{
+    margin-top: 18px;
+}
+
+.cooper-row{
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.cooper-field{
+    flex: 1;
+    min-width: 240px;
+}
+
+.cooper-label{
+    display: block;
+    margin: 0 0 8px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.cooper-hint{
+    margin-top: 6px;
+    font-size: 13px;
+    opacity: 0.85;
+    letter-spacing: 0.5px;
+}
+
+.cooper-input{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(0,0,0,0.25);
+    color: #fff;
+    outline: none;
+}
+
+.cooper-input::placeholder{
+    color: rgba(255,255,255,0.65);
+}
+
+.cooper-input:focus{
+    border-color: rgba(79, 65, 172, 0.9); /* совпадает с календарём */
+    box-shadow: 0 0 0 3px rgba(79, 65, 172, 0.25);
+}
+
+.cooper-seg{
+    display: flex;
+    gap: 10px;
+}
+
+.cooper-seg-btn{
+    flex: 1;
+    padding: 12px 10px;
+    border-radius: 12px;
+    border: 2px solid rgba(255,255,255,0.25);
+    background: rgba(0,0,0,0.15);
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.cooper-seg-btn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 247, 247, 0.25);
+}
+
+.cooper-seg-btn.is-active{
+    border-color: rgba(79, 65, 172, 0.95);
+    background: rgba(79, 65, 172, 0.22);
+}
+
+.cooper-actions{
+    display: flex;
+    gap: 12px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+}
+
+.cooper-btn{
+    flex: 1;
+    min-width: 220px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 1px;
+    font-weight: 700;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.cooper-btn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 247, 247, 0.25);
+}
+
+.cooper-btn:active{
+    transform: translateY(0);
+}
+
+.cooper-btn-primary{
+    background: #4f41ac;
+    color: #fff;
+}
+
+.cooper-btn-primary:hover{
+    background: #42379c;
+}
+
+.cooper-btn-secondary{
+    background: #3F3F3F;
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.15);
+}
+
+.cooper-result{
+    margin-top: 18px;
+    padding: 16px;
+    border-radius: 14px;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid rgba(255,255,255,0.18);
+    letter-spacing: 0.5px;
+    line-height: 1.55;
+}
+
+.cooper-result .cooper-badge{
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(79, 65, 172, 0.25);
+    border: 1px solid rgba(79, 65, 172, 0.65);
+    margin-bottom: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.cooper-result ul{
+    margin: 8px 0 0 18px;
+}
+
+@media (max-width: 768px){
+    .cooper-card{ padding: 18px; }
+    .cooper-btn{ min-width: 0; width: 100%; }
+}

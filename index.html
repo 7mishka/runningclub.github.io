@@ -36,6 +36,49 @@
             <span id="welcomeText" style="font-size: 18px; font-weight: bold;"></span>
             <button id="logoutBtn" style="margin-left: 15px; padding: 8px 15px; background: #ff6b6b; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">Выйти</button>
         </div>
+
+                <!-- НАЧАЛО ТЕСТА -->
+        <section class="cooper-test" aria-label="Тест Купера">
+            <div class="cooper-card">
+                <div class="cooper-header">
+                    <h2>Тест Купера (12 минут)</h2>
+                    <p class="cooper-subtitle">Определение уровня физической подготовки по дистанции, пройденной за 12 минут</p>
+                </div>
+
+                <div class="cooper-form">
+                    <div class="cooper-row">
+                        <div class="cooper-field">
+                            <label class="cooper-label">Пол</label>
+                            <div class="cooper-seg" role="group" aria-label="Выбор пола">
+                                <button type="button" class="cooper-seg-btn is-active" data-cooper-sex="M">Юноша</button>
+                                <button type="button" class="cooper-seg-btn" data-cooper-sex="F">Девушка</button>
+                            </div>
+                        </div>
+
+                        <div class="cooper-field">
+                            <label class="cooper-label" for="cooperAge">Возраст (лет)</label>
+                            <input id="cooperAge" class="cooper-input" type="number" min="13" max="19" placeholder="13–19">
+                            <div class="cooper-hint">Категории: 13–14, 15–16, 17–19</div>
+                        </div>
+                    </div>
+
+                    <div class="cooper-field">
+                        <label class="cooper-label" for="cooperDistance">Дистанция за 12 минут (метры)</label>
+                        <input id="cooperDistance" class="cooper-input" type="number" min="100" max="10000" step="10" placeholder="Например: 2500">
+                        <div class="cooper-hint">Введите фактическую дистанцию (лучше до 10 м)</div>
+                    </div>
+
+                    <div class="cooper-actions">
+                        <button type="button" id="cooperCalc" class="cooper-btn cooper-btn-primary">Рассчитать</button>
+                        <button type="button" id="cooperReset" class="cooper-btn cooper-btn-secondary">Сбросить</button>
+                    </div>
+
+                    <div id="cooperResult" class="cooper-result" aria-live="polite" hidden></div>
+                </div>
+            </div>
+        </section>
+        <!-- КОНЕЦ ТЕСТА -->
+        </div>
         
         <div class="colbasa">
              <div id="calendar-container" style="margin: 30px auto; max-width: 300px;"> 
