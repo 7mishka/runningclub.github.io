@@ -11,20 +11,6 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-<script>
-  const firebaseConfig = {
-  apiKey: "AIzaSyAxm3uPecNMygSLocnpRuUTGZI8L85bX0I",
-  authDomain: "running-club-1517.firebaseapp.com",
-  projectId: "running-club-1517",
-  storageBucket: "running-club-1517.firebasestorage.app",
-  messagingSenderId: "866925654724",
-  appId: "1:866925654724:web:383fa9ca2e585339ad0f91"
-};
-  firebase.initializeApp(firebaseConfig);
-
-  const auth = firebase.auth();
-  const db = firebase.firestore();
-</script>
 
 
 <body>
@@ -37,8 +23,7 @@
             <button id="logoutBtn" style="margin-left: 15px; padding: 8px 15px; background: #ff6b6b; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">Выйти</button>
         </div>
 
-                <!-- НАЧАЛО ТЕСТА -->
-        <section class="cooper-test" aria-label="Тест Купера">
+        <section id = "test" class="cooper-test" aria-label="Тест Купера">
             <div class="cooper-card">
                 <div class="cooper-header">
                     <h2>Тест Купера (12 минут)</h2>
@@ -77,7 +62,6 @@
                 </div>
             </div>
         </section>
-        <!-- КОНЕЦ ТЕСТА -->
         </div>
         
         <div class="colbasa">
@@ -212,6 +196,7 @@
         </div>
     </section>
     
+    <script src="data_base_file.js"></script>
     <script src="script.js"></script>
 
 </body>
