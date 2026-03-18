@@ -277,126 +277,126 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// document.addEventListener('DOMContentLoaded', () => {
-//     const ageEl = document.getElementById('cooperAge');
-//     const distEl = document.getElementById('cooperDistance');
-//     const calcBtn = document.getElementById('cooperCalc');
-//     const resetBtn = document.getElementById('cooperReset');
-//     const resultEl = document.getElementById('cooperResult');
-//     const sexButtons = Array.from(document.querySelectorAll('[data-cooper-sex]'));
+document.addEventListener('DOMContentLoaded', () => {
+    const ageEl = document.getElementById('cooperAge');
+    const distEl = document.getElementById('cooperDistance');
+    const calcBtn = document.getElementById('cooperCalc');
+    const resetBtn = document.getElementById('cooperReset');
+    const resultEl = document.getElementById('cooperResult');
+    const sexButtons = Array.from(document.querySelectorAll('[data-cooper-sex]'));
 
-//     if (!ageEl || !distEl || !calcBtn || !resetBtn || !resultEl || sexButtons.length === 0) return;
+    if (!ageEl || !distEl || !calcBtn || !resetBtn || !resultEl || sexButtons.length === 0) return;
 
-//     let sex = 'M'; 
+    let sex = 'M'; 
 
-//     function setSex(newSex){
-//         sex = newSex;
-//         sexButtons.forEach(b => b.classList.toggle('is-active', b.dataset.cooperSex === newSex));
-//     }
+    function setSex(newSex){
+        sex = newSex;
+        sexButtons.forEach(b => b.classList.toggle('is-active', b.dataset.cooperSex === newSex));
+    }
 
-//     sexButtons.forEach(btn => {
-//         btn.addEventListener('click', () => setSex(btn.dataset.cooperSex));
-//     });
+    sexButtons.forEach(btn => {
+        btn.addEventListener('click', () => setSex(btn.dataset.cooperSex));
+    });
 
-//     function getAgeGroup(age){
-//         if (age >= 13 && age <= 14) return '13-14';
-//         if (age >= 15 && age <= 16) return '15-16';
-//         if (age >= 17 && age <= 19) return '17-19';
-//         return null;
-//     }
+    function getAgeGroup(age){
+        if (age >= 13 && age <= 14) return '13-14';
+        if (age >= 15 && age <= 16) return '15-16';
+        if (age >= 17 && age <= 19) return '17-19';
+        return null;
+    }
 
   
-//     const norms = {
-//         '13-14': {
-//             M: { excellent: 2700, good: 2400, average: 2200, poor: 2100 },
-//             F: { excellent: 2000, good: 1900, average: 1600, poor: 1500 }
-//         },
-//         '15-16': {
-//             M: { excellent: 2800, good: 2500, average: 2300, poor: 2200 },
-//             F: { excellent: 2100, good: 2000, average: 1700, poor: 1600 }
-//         },
-//         '17-19': {
-//             M: { excellent: 3000, good: 2700, average: 2500, poor: 2300 },
-//             F: { excellent: 2300, good: 2100, average: 1800, poor: 1700 }
-//         }
-//     };
+    const norms = {
+        '13-14': {
+            M: { excellent: 2700, good: 2400, average: 2200, poor: 2100 },
+            F: { excellent: 2000, good: 1900, average: 1600, poor: 1500 }
+        },
+        '15-16': {
+            M: { excellent: 2800, good: 2500, average: 2300, poor: 2200 },
+            F: { excellent: 2100, good: 2000, average: 1700, poor: 1600 }
+        },
+        '17-19': {
+            M: { excellent: 3000, good: 2700, average: 2500, poor: 2300 },
+            F: { excellent: 2300, good: 2100, average: 1800, poor: 1700 }
+        }
+    };
 
-//     function getCategory(distance, group, sexKey){
-//         const t = norms[group][sexKey];
-//         if (distance > t.excellent) return 'Отлично';
-//         if (distance >= t.good) return 'Хорошо';
-//         if (distance >= t.average) return 'Средне';
-//         if (distance >= t.poor) return 'Плохо';
-//         return 'Очень плохо';
-//     }
+    function getCategory(distance, group, sexKey){
+        const t = norms[group][sexKey];
+        if (distance > t.excellent) return 'Отлично';
+        if (distance >= t.good) return 'Хорошо';
+        if (distance >= t.average) return 'Средне';
+        if (distance >= t.poor) return 'Плохо';
+        return 'Очень плохо';
+    }
 
-//     function formatPace(minutesPerKm){
-//         if (!isFinite(minutesPerKm) || minutesPerKm <= 0) return '—';
-//         const totalSeconds = Math.round(minutesPerKm * 60);
-//         const mm = Math.floor(totalSeconds / 60);
-//         const ss = totalSeconds % 60;
-//         return `${mm}:${String(ss).padStart(2,'0')} мин/км`;
-//     }
+    function formatPace(minutesPerKm){
+        if (!isFinite(minutesPerKm) || minutesPerKm <= 0) return '—';
+        const totalSeconds = Math.round(minutesPerKm * 60);
+        const mm = Math.floor(totalSeconds / 60);
+        const ss = totalSeconds % 60;
+        return `${mm}:${String(ss).padStart(2,'0')} мин/км`;
+    }
 
-//     function showError(msg){
-//         resultEl.hidden = false;
-//         resultEl.innerHTML = `<div class="cooper-badge">Ошибка</div><div>${msg}</div>`;
-//     }
+    function showError(msg){
+        resultEl.hidden = false;
+        resultEl.innerHTML = `<div class="cooper-badge">Ошибка</div><div>${msg}</div>`;
+    }
 
-//     function showResult({groupLabel, sexLabel, distance, speedKmh, paceStr, category}){
-//         resultEl.hidden = false;
-//         resultEl.innerHTML = `
-//             <div class="cooper-badge">${category}</div>
-//             <div><strong>Категория:</strong> ${sexLabel}, ${groupLabel} лет</div>
-//             <ul>
-//                 <li><strong>Дистанция за 12 минут:</strong> ${distance} м</li>
-//                 <li><strong>Средняя скорость:</strong> ${speedKmh.toFixed(2)} км/ч</li>
-//                 <li><strong>Темп бега:</strong> ${paceStr}</li>
-//                 <li><strong>Результат:</strong> ${category}</li>
-//             </ul>
-//         `;
-//     }
+    function showResult({groupLabel, sexLabel, distance, speedKmh, paceStr, category}){
+        resultEl.hidden = false;
+        resultEl.innerHTML = `
+            <div class="cooper-badge">${category}</div>
+            <div><strong>Категория:</strong> ${sexLabel}, ${groupLabel} лет</div>
+            <ul>
+                <li><strong>Дистанция за 12 минут:</strong> ${distance} м</li>
+                <li><strong>Средняя скорость:</strong> ${speedKmh.toFixed(2)} км/ч</li>
+                <li><strong>Темп бега:</strong> ${paceStr}</li>
+                <li><strong>Результат:</strong> ${category}</li>
+            </ul>
+        `;
+    }
 
-//     calcBtn.addEventListener('click', () => {
-//         const age = Number(ageEl.value);
-//         const distance = Number(distEl.value);
+    calcBtn.addEventListener('click', () => {
+        const age = Number(ageEl.value);
+        const distance = Number(distEl.value);
 
-//         const group = getAgeGroup(age);
-//         if (!group){
-//             showError('Введите возраст от 13 до 19 лет (категории 13–14, 15–16, 17–19).');
-//             return;
-//         }
-//         if (!Number.isFinite(distance) || distance <= 0){
-//             showError('Введите дистанцию (в метрах), которую вы пробежали за 12 минут.');
-//             return;
-//         }
-//         // разумные рамки, чтобы отсечь случайные ошибки
-//         if (distance < 800 || distance > 5000){
-//             showError('Похоже на ошибку ввода дистанции. Для 12 минут обычно указывают 800–5000 м.');
-//             return;
-//         }
+        const group = getAgeGroup(age);
+        if (!group){
+            showError('Введите возраст от 13 до 19 лет (категории 13–14, 15–16, 17–19).');
+            return;
+        }
+        if (!Number.isFinite(distance) || distance <= 0){
+            showError('Введите дистанцию (в метрах), которую вы пробежали за 12 минут.');
+            return;
+        }
+        // разумные рамки, чтобы отсечь случайные ошибки
+        if (distance < 800 || distance > 5000){
+            showError('Похоже на ошибку ввода дистанции. Для 12 минут обычно указывают 800–5000 м.');
+            return;
+        }
 
-//         const category = getCategory(distance, group, sex);
+        const category = getCategory(distance, group, sex);
 
-//         const totalSeconds = 12 * 60;
-//         const speedMs = distance / totalSeconds;
-//         const speedKmh = speedMs * 3.6;
+        const totalSeconds = 12 * 60;
+        const speedMs = distance / totalSeconds;
+        const speedKmh = speedMs * 3.6;
 
-//         const distanceKm = distance / 1000;
-//         const paceMinPerKm = 12 / distanceKm;
-//         const paceStr = formatPace(paceMinPerKm);
+        const distanceKm = distance / 1000;
+        const paceMinPerKm = 12 / distanceKm;
+        const paceStr = formatPace(paceMinPerKm);
 
-//         const groupLabel = group.replace('-', '–');
-//         const sexLabel = sex === 'M' ? 'Юноша' : 'Девушка';
+        const groupLabel = group.replace('-', '–');
+        const sexLabel = sex === 'M' ? 'Юноша' : 'Девушка';
 
-//         showResult({groupLabel, sexLabel, distance, speedKmh, paceStr, category});
-//     });
+        showResult({groupLabel, sexLabel, distance, speedKmh, paceStr, category});
+    });
 
-//     resetBtn.addEventListener('click', () => {
-//         ageEl.value = '';
-//         distEl.value = '';
-//         setSex('M');
-//         resultEl.hidden = true;
-//         resultEl.innerHTML = '';
-//     });
-// });
+    resetBtn.addEventListener('click', () => {
+        ageEl.value = '';
+        distEl.value = '';
+        setSex('M');
+        resultEl.hidden = true;
+        resultEl.innerHTML = '';
+    });
+});
