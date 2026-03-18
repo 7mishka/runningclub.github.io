@@ -308,27 +308,25 @@ document.addEventListener('DOMContentLoaded', () => {
   
     const norms = {
         '13-14': {
-            M: { excellent: 2700, good: 2400, average: 2200, poor: 2100 },
-            F: { excellent: 2000, good: 1900, average: 1600, poor: 1500 }
+            M: { excellent: 2700, good: 2400, average: 2200 },
+            F: { excellent: 2000, good: 1900, average: 1600 }
         },
         '15-16': {
-            M: { excellent: 2800, good: 2500, average: 2300, poor: 2200 },
-            F: { excellent: 2100, good: 2000, average: 1700, poor: 1600 }
+            M: { excellent: 2800, good: 2500, average: 2300 },
+            F: { excellent: 2100, good: 2000, average: 1700 }
         },
         '17-19': {
-            M: { excellent: 3000, good: 2700, average: 2500, poor: 2300 },
-            F: { excellent: 2300, good: 2100, average: 1800, poor: 1700 }
+            M: { excellent: 3000, good: 2700, average: 2500 },
+            F: { excellent: 2300, good: 2100, average: 1800 }
         }
     };
 
     function getCategory(distance, group, sexKey){
         const t = norms[group][sexKey];
-        if (distance > t.excellent) return 'Отлично';
-        if (distance >= t.good) return 'Хорошо';
-        if (distance >= t.average) return 'Средне';
-        if (distance >= t.poor) return 'Плохо';
-        return 'Очень плохо';
-    }
+        if (distance > t.excellent) return 'Продвинутый уровень';
+        if (distance >= t.good) return 'Умеренный уровень';
+        if (distance >= t.average) return 'Начальный уровень';
+            }
 
     function formatPace(minutesPerKm){
         if (!isFinite(minutesPerKm) || minutesPerKm <= 0) return '—';
@@ -370,7 +368,6 @@ document.addEventListener('DOMContentLoaded', () => {
             showError('Введите дистанцию (в метрах), которую вы пробежали за 12 минут.');
             return;
         }
-        // разумные рамки, чтобы отсечь случайные ошибки
         if (distance < 800 || distance > 5000){
             showError('Похоже на ошибку ввода дистанции. Для 12 минут обычно указывают 800–5000 м.');
             return;
