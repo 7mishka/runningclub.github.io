@@ -308,24 +308,26 @@ document.addEventListener('DOMContentLoaded', () => {
   
     const norms = {
         '13-14': {
-            M: { excellent: 2700, good: 2400, average: 2200 },
-            F: { excellent: 2000, good: 1900, average: 1600 }
+            M: { excellent: 2700, good: 2400, average: 2200, poor: 2000 },
+            F: { excellent: 2000, good: 1900, average: 1500, poor: 1400 }
         },
         '15-16': {
-            M: { excellent: 2800, good: 2500, average: 2300 },
-            F: { excellent: 2100, good: 2000, average: 1700 }
+            M: { excellent: 2800, good: 2500, average: 2200, poor: 2100 },
+            F: { excellent: 2100, good: 2000, average: 1600, poor: 1500 }
         },
         '17-19': {
-            M: { excellent: 3000, good: 2700, average: 2500 },
-            F: { excellent: 2300, good: 2100, average: 1800 }
+            M: { excellent: 3000, good: 2700, average: 2300, poor: 2200 },
+            F: { excellent: 2300, good: 2100, average: 1700, poor: 1600 }
         }
     };
 
     function getCategory(distance, group, sexKey){
         const t = norms[group][sexKey];
-        if (distance > t.excellent) return 'Продвинутый уровень';
-        if (distance >= t.good) return 'Умеренный уровень';
-        if (distance >= t.average) return 'Начальный уровень';
+        if (distance > t.excellent) return 'Продвинутый';
+        if (distance >= t.good) return 'Продвинуто-средний ';
+        if (distance >= t.average) return 'Средний ';
+        if (distance >= t.poor) return 'Начальный';
+        return 'начальный ';
             }
 
     function formatPace(minutesPerKm){
